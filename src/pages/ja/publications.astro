@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/translations';
+import publications from '../../data/publications.json';
+
+const lang = 'ja';
+const tr = t(lang);
+
+const byYear = publications.reduce((acc: Record<number, any[]>, pub: any) => {
+  const y = pub.year ?? 0;
+  if (!acc[y]) acc[y] = [];
+  acc[y].push(pub);
+  return acc;
+}, {});
+const years = Object.keys(byYear).map(Number).sort((a, b) => b - a);
+---
+
+<Layout lang={lang} title="論文一覧">
+  <h1 class="text-3xl font-bold mb-2">{tr.publications.title}</h1>
+  <p class="text-gray-500 dark:text-gray-400 mb-8">{tr.publications.subtitle}</p>
+
+  {publications.length === 0 ? (
+    <div class="text-center py-16 text-gray-400 dark:text-gray-500">
+      <p class="text-lg mb-2">{tr.publications.noPublications}</p>
+      <p class="text-sm">
+        <code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-xs">npm run build</code> を実行するとORCIDから自動取得します。
+      </p>
+    </div>
+  ) : (
+    <div class="space-y-10">
+      {years.map((year) => (
+        <section>
+          <h2 class="text-lg font-semibold text-accent-600 dark:text-accent-400 mb-4 flex items-center gap-2">
+            <span class="w-10 h-0.5 bg-accent-400 inline-block"></span>
+            {year}
+          </h2>
+          <div class="space-y-4">
+            {byYear[year].map((pub: any) => (
+              <article class="pub-card group">
+                <h3 class="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors leading-snug mb-2">
+                  {pub.url ? (
+                    <a href={pub.url} target="_blank" rel="noopener">{pub.title}</a>
+                  ) : pub.title}
+                </h3>
+                {pub.authors?.length > 0 && (
+                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">{pub.authors.join(', ')}</p>
+                )}
+                {pub.venue && (
+                  <p class="text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">
+                    <span class="italic">{pub.venue}</span>
+                    {pub.year && <span class="text-gray-400">, {pub.year}年</span>}
+                  </p>
+                )}
+                <div class="flex flex-wrap gap-2 mt-2">
+                  {pub.doi && (
+                    <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener" class="link-badge">DOI</a>
+                  )}
+                  {pub.url && (
+                    <a href={pub.url} target="_blank" rel="noopener" class="link-badge">リンク</a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  )}
+</Layout>
+
+<style>
+  .pub-card {
+    @apply p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:border-accent-200 dark:hover:border-accent-800 bg-white dark:bg-gray-900/30 transition-colors;
+  }
+  .link-badge {
+    @apply px-2.5 py-0.5 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-accent-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors;
+  }
+</style>

@@ -1,0 +1,119 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/translations';
+import { cvData } from '../../data/cv';
+
+const lang = 'ja';
+const tr = t(lang);
+---
+
+<Layout lang={lang} title="経歴">
+  <h1 class="text-3xl font-bold mb-8">{tr.cv.title}</h1>
+
+  <!-- Education -->
+  <section class="mb-10">
+    <h2 class="section-title">{tr.cv.education}</h2>
+    <div class="space-y-4">
+      {cvData.education.map((edu) => (
+        <div class="flex gap-4">
+          <div class="flex-shrink-0 mt-1">
+            <div class="w-2.5 h-2.5 rounded-full bg-accent-500 ring-4 ring-accent-100 dark:ring-accent-900"></div>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900 dark:text-gray-100">{edu.degree.ja}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">{edu.institution.ja}</p>
+            <p class="text-xs text-gray-400 mt-0.5">{edu.period}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Experience -->
+  {cvData.experience.length > 0 && (
+    <section class="mb-10">
+      <h2 class="section-title">{tr.cv.experience}</h2>
+      <div class="space-y-4">
+        {cvData.experience.map((exp: any) => (
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 mt-1">
+              <div class="w-2.5 h-2.5 rounded-full bg-accent-400 ring-4 ring-accent-50 dark:ring-accent-900/50"></div>
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-gray-100">{exp.role.ja}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">{exp.organization.ja}</p>
+              <p class="text-xs text-gray-400 mt-0.5">{exp.period}</p>
+              {exp.description?.ja && <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{exp.description.ja}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Awards -->
+  {cvData.awards.length > 0 && (
+    <section class="mb-10">
+      <h2 class="section-title">{tr.cv.awards}</h2>
+      <div class="space-y-3">
+        {cvData.awards.map((award: any) => (
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-800/30">
+            <span class="text-amber-500 mt-0.5">🏆</span>
+            <div>
+              <p class="font-medium text-gray-900 dark:text-gray-100">{award.title.ja}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">{award.venue.ja} · {award.year}年</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Skills -->
+  <section class="mb-10">
+    <h2 class="section-title">{tr.cv.skills}</h2>
+    <div class="space-y-4">
+      {cvData.skills.ja.map((group) => (
+        <div>
+          <p class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2">{group.category}</p>
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span class="px-2.5 py-1 text-sm rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Links -->
+  <section>
+    <h2 class="section-title">リンク</h2>
+    <div class="flex flex-wrap gap-3">
+      <a href={`https://orcid.org/${cvData.social.orcid}`} target="_blank" rel="noopener" class="link-chip">
+        ORCID: {cvData.social.orcid}
+      </a>
+      {cvData.social.github && (
+        <a href={`https://github.com/${cvData.social.github}`} target="_blank" rel="noopener" class="link-chip">
+          GitHub: {cvData.social.github}
+        </a>
+      )}
+      {cvData.social.googleScholar && (
+        <a href={cvData.social.googleScholar} target="_blank" rel="noopener" class="link-chip">
+          Google Scholar
+        </a>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section-title {
+    @apply text-xl font-semibold mb-5 pb-2 border-b border-gray-100 dark:border-gray-800;
+  }
+  .link-chip {
+    @apply px-3 py-1.5 text-sm rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-accent-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors;
+  }
+</style>

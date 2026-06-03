@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Identity-Aware Contrastive Learning for Robust Facial Drowsiness Estimation",
+    "authors": ["Riku Yamamoto", "Noriko Takemura"],
+    "venue": "Pattern Recognition Letters",
+    "year": 2026,
+    "type": "Journal Article (under review)",
+    "doi": null,
+    "url": null
+  },
+  {
+    "title": "Zero-Shot Estimation of Compound Emotional Expressions from Facial Images Using Only Basic Emotional Expression Features",
+    "authors": ["Riku Yamamoto", "Noriko Takemura"],
+    "venue": "Pattern Recognition and Computer Vision - ACPR 2025",
+    "year": 2026,
+    "type": "Conference Paper",
+    "doi": null,
+    "url": null
+  },
+  {
+    "title": "EMMA: EMotion Mixing Algorithm for Compound Expression Recognition Using Angle-Based Metric Learning",
+    "authors": ["Riku Yamamoto", "Noriko Takemura"],
+    "venue": "Computer Vision - ACCV 2024 Workshops",
+    "year": 2025,
+    "type": "Conference Paper",
+    "doi": null,
+    "url": null
+  },
+  {
+    "title": "顔の個人差を抑制する対照学習表現による内部状態推定",
+    "authors": ["山本陸", "武村紀子"],
+    "venue": "第29回 画像の認識・理解シンポジウム (MIRU2026)",
+    "year": 2026,
+    "type": "Domestic Conference (under review)",
+    "doi": null,
+    "url": null
+  },
+  {
+    "title": "基本感情特徴のみを用いた顔画像からのゼロショット複合表情推定",
+    "authors": ["山本陸", "武村紀子"],
+    "venue": "第28回 画像の認識・理解シンポジウム (MIRU2025)",
+    "year": 2025,
+    "type": "Domestic Conference",
+    "doi": null,
+    "url": null
+  },
+  {
+    "title": "自己教師あり学習による顔映像の長期依存性を考慮した表現学習認識",
+    "authors": ["北島衛", "山本陸", "武村紀子"],
+    "venue": "第28回 画像の認識・理解シンポジウム (MIRU2025)",
+    "year": 2025,
+    "type": "Domestic Conference",
+    "doi": null,
+    "url": null
+  },
+  {
+    "title": "角度による距離学習を用いた基本感情に基づく複合感情推定",
+    "authors": ["山本陸", "武村紀子"],
+    "venue": "第27回 画像の認識・理解シンポジウム (MIRU2024)",
+    "year": 2024,
+    "type": "Domestic Conference",
+    "doi": null,
+    "url": null
+  }
+]
