@@ -5,11 +5,5 @@ export default defineConfig({
   site: 'https://yammer2.github.io',
   base: '/homepage',
   integrations: [tailwind()],
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'ja'],
-    routing: {
-      prefixDefaultLocale: true,
-    },
-  },
+  trailingSlash: 'always',
 });

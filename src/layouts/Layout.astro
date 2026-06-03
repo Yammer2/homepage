@@ -11,14 +11,16 @@ interface Props {
 const { lang, title, description } = Astro.props;
 const tr = t(lang);
 const alternateLang = getAlternateLang(lang);
-const base = import.meta.env.BASE_URL;
 
-// Current path without base and without lang prefix
+// BASE_URL は '/homepage/' のようにtrailing slashつきで返る
+const base = import.meta.env.BASE_URL.replace(/\/$/, ''); // => '/homepage'
+
+// 現在のパスからbase＋言語プレフィックスを除去
 const currentPath = Astro.url.pathname
-  .replace(base.replace(/\/$/, ''), '')
-  .replace(/^\/[a-z]{2}(\/|$)/, '/') || '/';
+  .replace(base, '')                          // '/en/publications/' など
+  .replace(/^\/[a-z]{2}(\/|$)/, '/') || '/'; // => '/publications/'
 
-const alternatePath = `${base}${alternateLang}${currentPath === '/' ? '' : currentPath}`;
+const alternatePath = `${base}/${alternateLang}${currentPath}`;
 const pageTitle = title ? `${title} | Riku Yamamoto` : 'Riku Yamamoto | 山本 陸';
 ---
 
@@ -45,13 +47,13 @@ const pageTitle = title ? `${title} | Riku Yamamoto` : 'Riku Yamamoto | 山本 �
     <!-- Navigation -->
     <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur border-b border-gray-100 dark:border-gray-800">
       <nav class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href={`${base}${lang}/`} class="font-semibold text-accent-600 dark:text-accent-400 hover:opacity-80 transition-opacity">
+        <a href={`${base}/${lang}/`} class="font-semibold text-accent-600 dark:text-accent-400 hover:opacity-80 transition-opacity">
           {lang === 'en' ? 'Riku Yamamoto' : '山本 陸'}
         </a>
         <div class="flex items-center gap-1 sm:gap-4">
-          <a href={`${base}${lang}/`} class="nav-link">{tr.nav.home}</a>
-          <a href={`${base}${lang}/publications/`} class="nav-link">{tr.nav.publications}</a>
-          <a href={`${base}${lang}/cv/`} class="nav-link">{tr.nav.cv}</a>
+          <a href={`${base}/${lang}/`} class="nav-link">{tr.nav.home}</a>
+          <a href={`${base}/${lang}/publications/`} class="nav-link">{tr.nav.publications}</a>
+          <a href={`${base}/${lang}/cv/`} class="nav-link">{tr.nav.cv}</a>
 
           <!-- Language toggle -->
           <a
